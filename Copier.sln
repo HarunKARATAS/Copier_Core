@@ -1,7 +1,7 @@
 
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{2F47800A-BDF3-45EB-B77E-BE01B12E23A2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Copier", "Client\Copier.csproj", "{2F47800A-BDF3-45EB-B77E-BE01B12E23A2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
