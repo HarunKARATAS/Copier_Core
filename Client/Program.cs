@@ -24,7 +24,9 @@ namespace Client
         private static void StartWatching(CommandOptions options)
         {
             Console.WriteLine("Watching has started");
-            WatchFile(options.FileGlobPattern, options.SourceDirectoryPath);
+            WatchFile(options.FileGlobPattern, string.IsNullOrWhiteSpace(options.SourceDirectoryPath)
+            ? Directory.GetCurrentDirectory()
+            : options.SourceDirectoryPath);
         }
 
         private static void WatchFile(String filePattern, String sourceDirectoryPath)
@@ -40,7 +42,7 @@ namespace Client
             {
                 if (args.ChangeType == WatcherChangeTypes.Changed)
                 {
-                    Console.WriteLine($"{args.Name} File has changed{args.ChangeType}");
+                    Console.WriteLine($"{args.Name} File has changed {args.ChangeType}");
                 }
             };
             watcher.Renamed += (sender, args) => Console.WriteLine($"{args.OldName} File has been renamed to {args.Name}");
