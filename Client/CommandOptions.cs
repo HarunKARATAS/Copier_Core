@@ -17,6 +17,9 @@ namespace Copier
         [Option('d', "destinationDirectoryPath", Required = true, HelpText = "Destination directory path")]
         public string DestinationDirectoryPath { get; set; }
 
+        [Option('o', "overrideTargetFiles",Default = false, HelpText = "If passedd true, Copier will override existing files at the target location"]
+        public bool OverrideTargetFiles { get; set; }
+
         [Usage]
         public static IEnumerable<Example> Examples => new List<Example>()
         {
