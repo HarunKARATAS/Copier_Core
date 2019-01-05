@@ -1,6 +1,6 @@
 ﻿namespace Copier
 {
-    public interface IOutputChannel
+    public interface ILogger
     {
         void Write(string message);
     }

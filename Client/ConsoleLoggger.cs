@@ -1,7 +1,7 @@
 ﻿using System;
 namespace Copier
 {
-    class OutputChannel : IOutputChannel
+    class ConsoleLoggger : ILogger
     {
         public void Write(string message)
         {
