@@ -33,6 +33,25 @@ namespace Copier
                 FileGlobPattern = "*.jpg",
                 DestinationDirectoryPath = "/Users/harun/Desktop/Cambridge_English_Vocabulary_ in_Use/Tools"
 
+            }),
+            new Example( "Starts the copier and the overrides target files.",new UnParserSettings{PreferShortName = true},
+            new CommandOptions
+            {
+                SourceDirectoryPath = "/Users/harun/Desktop",
+                FileGlobPattern = "*.jpg",
+                DestinationDirectoryPath = "/Users/harun/Desktop/Cambridge_English_Vocabulary_ in_Use/Tools",
+                OverwriteTargetFile = true
+
+            }),
+            new Example( "Starts the copier and the overrides target files and output verbose messages.",new UnParserSettings{PreferShortName = true},
+            new CommandOptions
+            {
+                SourceDirectoryPath = "/Users/harun/Desktop",
+                FileGlobPattern = "*.jpg",
+                DestinationDirectoryPath = "/Users/harun/Desktop/Cambridge_English_Vocabulary_ in_Use/Tools",
+                OverwriteTargetFile = true,
+                Verbose = true
+
             })
         };
     }
