@@ -5,18 +5,29 @@ namespace Copier
 {
     class FileCopier : IFileCopier
     {
+        private readonly ILogger _logger;
+
+        public FileCopier(ILogger logger)
+        {
+            _logger = logger;
+        }
         public Action<string> PreCopy = delegate { };
         public Action<string> PostCopy = delegate { };
 
-        public void CopyFile(string sourceDirectoryPath, string fileName, string targetDirectoryPath, bool overwriteTargetFile)
+        public void CopyFile(CommandOptions options, string fileName)
         {
-            var absoluteSourceFilePath = Path.Combine(sourceDirectoryPath, fileName);
-            var absoluteTargetFilePath = Path.Combine(targetDirectoryPath, fileName);
+            var absoluteSourceFilePath = Path.Combine(options.SourceDirectoryPath, fileName);
+            var absoluteTargetFilePath = Path.Combine(options.DestinationDirectoryPath, fileName);
 
-            if (File.Exists(absoluteSourceFilePath) && (overwriteTargetFile == false)) return;
+            if (File.Exists(absoluteSourceFilePath) && (options.OverwriteTargetFile == false)) 
+            {
+
+                _logger.Write($"{fileName} exist. Skipped because OverwriteTargetFile is set false.");
+                return; 
+            }
 
             PreCopy(absoluteSourceFilePath);
-            File.Copy(absoluteSourceFilePath, targetDirectoryPath, overwriteTargetFile);
+            File.Copy(absoluteSourceFilePath, absoluteTargetFilePath, options.OverwriteTargetFile);
             PostCopy(absoluteSourceFilePath);
         }
 

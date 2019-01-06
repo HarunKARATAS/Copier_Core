@@ -1,9 +1,9 @@
 ﻿<Properties StartupConfiguration="{2F47800A-BDF3-45EB-B77E-BE01B12E23A2}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Client/IFileWatcher.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Client/FileCopier.cs">
     <Files>
-      <File FileName="Client/Program.cs" Line="35" Column="18" />
-      <File FileName="Client/FileCopier.cs" Line="20" Column="46" />
-      <File FileName="Client/IFileWatcher.cs" Line="1" Column="1" />
+      <File FileName="Client/Program.cs" Line="37" Column="20" />
+      <File FileName="Client/FileCopier.cs" Line="13" Column="82" />
+      <File FileName="Client/IFileWatcher.cs" Line="52" Column="56" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.ItemProperties.Copier PreferredExecutionTarget="MonoDevelop.Default" />

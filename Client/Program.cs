@@ -32,8 +32,8 @@ namespace Client
             ? Directory.GetCurrentDirectory()
             : options.SourceDirectoryPath;
 
-            IFileCopier copier = new FileCopier();
             ILogger logger = new ConsoleLoggger();
+            IFileCopier copier = new FileCopier(logger);
             IFileWatcher fileWatcher = new FileWatcher(copier,logger);
             fileWatcher.Watch(options);
         }
