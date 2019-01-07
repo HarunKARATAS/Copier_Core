@@ -1,0 +1,7 @@
+﻿namespace Copier
+{
+    public interface IPluginLoader
+    {
+        void Subscribe(IPreCopyEventBroadcaster pre, IPostCopyEventBroadcaster post);
+    }
+}

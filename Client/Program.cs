@@ -7,7 +7,6 @@ namespace Client
 {
     class Program
     {
-        public static event Action ApplicationStarted = delegate  {};
         static void Main(string[] args)
         {
 
@@ -25,16 +24,21 @@ namespace Client
         private static void StartWatching(CommandOptions options)
         {
 
-            ApplicationStarted();
             Console.WriteLine("Watching has started");
 
              options.SourceDirectoryPath = string.IsNullOrWhiteSpace(options.SourceDirectoryPath)
             ? Directory.GetCurrentDirectory()
             : options.SourceDirectoryPath;
 
+            PluginLoader loader = new PluginLoader();
+
+
             ILogger logger = new ConsoleLoggger();
             IFileCopier copier = new FileCopier(logger);
             IFileWatcher fileWatcher = new FileWatcher(copier,logger);
+
+            loader.Subscribe((IPreCopyEventBroadcaster) copier, (IPostCopyEventBroadcaster) copier);
+
             fileWatcher.Watch(options);
         }
 

@@ -3,16 +3,18 @@ using System.IO;
 
 namespace Copier
 {
-    class FileCopier : IFileCopier
+    class FileCopier : IFileCopier,IPreCopyEventBroadcaster, IPostCopyEventBroadcaster
     {
+
+        public event Action<string> PreCopyEvent = delegate { };
+        public event Action<string> PostCopyEvent = delegate { };
+
         private readonly ILogger _logger;
 
         public FileCopier(ILogger logger)
         {
             _logger = logger;
         }
-        public Action<string> PreCopy = delegate { };
-        public Action<string> PostCopy = delegate { };
 
         public void CopyFile(CommandOptions options, string fileName)
         {
@@ -26,10 +28,20 @@ namespace Copier
                 return; 
             }
 
-            PreCopy(absoluteSourceFilePath);
+            PreCopyEvent(absoluteSourceFilePath);
             File.Copy(absoluteSourceFilePath, absoluteTargetFilePath, options.OverwriteTargetFile);
-            PostCopy(absoluteSourceFilePath);
+            PostCopyEvent(absoluteSourceFilePath);
         }
 
+    }
+
+    public interface IPostCopyEventBroadcaster
+    {
+        event Action<string> PostCopyEvent;
+    }
+
+    public interface IPreCopyEventBroadcaster
+    {
+        event Action<string> PreCopyEvent;
     }
 }

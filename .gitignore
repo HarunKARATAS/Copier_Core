@@ -1,5 +1,6 @@
 /Client/obj/*
-/.vs/Copier/xs/sqlite3/*
+.vs/Copier/xs/sqlite3/*
 CopierPluginBase/obj/*
 .gitignore
 .vs/Copier/xs/*
+CopierPluginBase/bin/*
