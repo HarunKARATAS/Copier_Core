@@ -7,10 +7,18 @@ using CopierPluginBase;
 
 namespace Copier
 {
-    public class PluginLoader
+    public class PluginLoader : IPluginLoader
     {
+        private readonly ILogger _logger;
+        private readonly bool _showDebugMessages;
         private List<Type> _preCopyListeners = new List<Type>();
         private List<Type> _postCopyListeners = new List<Type>();
+
+        public PluginLoader(ILogger logger, bool showDebugMessages = false):this()
+        {
+            _logger = logger;
+            _showDebugMessages = showDebugMessages;      
+        }
 
         public PluginLoader()
         {
@@ -18,9 +26,14 @@ namespace Copier
             var pluginDirectory = Path.Combine(Directory.GetCurrentDirectory(), "plugins");
             var assemblyFiles = Directory.GetFiles(pluginDirectory, "*.dll");
 
-            foreach (var assemblyFile in assemblyFiles)
+            foreach (var assemblyName in assemblyFiles)
             {
-                var pluginAssembly = Assembly.LoadFile(assemblyFile);
+                var pluginAssembly = Assembly.LoadFile(assemblyName);
+
+                if (_logger != null && _showDebugMessages == true)
+                {
+                    _logger.Write($"Loaded {assemblyName}");
+                }
 
                 var postCopyListenerTypes = pluginAssembly.GetTypes()
                 .Where(a => a.IsClass && (a.IsSubclassOf(typeof(IPostCopyEventListener))));

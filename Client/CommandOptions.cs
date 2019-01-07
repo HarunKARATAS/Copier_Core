@@ -23,6 +23,10 @@ namespace Copier
         [Option('v', "verbose", Default = false,Required =false, HelpText = "If passedd true, more information will outputted to the console.")]
         public bool Verbose { get; set; }
 
+        [Option('e', "debug", Default = false, Required = false, HelpText = "Show debug information.")]
+        public bool Debug { get; set; }
+
+
         [Usage]
         public static IEnumerable<Example> Examples => new List<Example>()
         {
