@@ -9,15 +9,15 @@ namespace Copier
 {
     public class PluginLoader : IPluginLoader
     {
-        private readonly ILogger _logger;
-        private readonly bool _showDebugMessages;
+        private readonly ILogger _debugLogger;
         private List<Type> _preCopyListeners = new List<Type>();
         private List<Type> _postCopyListeners = new List<Type>();
+        private bool ShowDebugMessages { get; set; }
 
-        public PluginLoader(ILogger logger, bool showDebugMessages = false):this()
+        public PluginLoader(ILogger debugLogger, bool showDebugMessages = false):this()
         {
-            _logger = logger;
-            _showDebugMessages = showDebugMessages;      
+            _debugLogger = debugLogger;
+            ShowDebugMessages = showDebugMessages  && debugLogger != null;    
         }
 
         public PluginLoader()
@@ -30,20 +30,40 @@ namespace Copier
             {
                 var pluginAssembly = Assembly.LoadFile(assemblyName);
 
-                if (_logger != null && _showDebugMessages == true)
+                if (ShowDebugMessages)
                 {
-                    _logger.Write($"Loaded {assemblyName}");
+                    _debugLogger.Write($"Loaded {assemblyName}");
                 }
 
-                var postCopyListenerTypes = pluginAssembly.GetTypes()
-                .Where(a => a.IsClass && (a.IsSubclassOf(typeof(IPostCopyEventListener))));
+                var existingTypes  = pluginAssembly.GetTypes();
+
+               
+                var postCopyListenerTypes = existingTypes
+                .Where(a => a.IsClass && (a.IsSubclassOf(typeof(IPostCopyEventListener)))).ToList();
                 _postCopyListeners.AddRange(postCopyListenerTypes);
 
-                var preCopyListenerTypes = pluginAssembly.GetTypes()
-             .Where(a => a.IsClass && (a.IsSubclassOf(typeof(IPreCopyEventListener))));
+                var preCopyListenerTypes = existingTypes
+             .Where(a => a.IsClass && (a.IsSubclassOf(typeof(IPreCopyEventListener)))).ToList();
                 _preCopyListeners.AddRange(preCopyListenerTypes);
+
+
+                // if enabled login debug messages for the found types in the iterated assembly
+                if (ShowDebugMessages)
+                {
+                    _debugLogger.Write($"Found the following PostCopy types from plugin {assemblyName}:");
+                    _debugLogger.Write(string.Join("\n",postCopyListenerTypes.Select(a=> a.Name).ToArray()));
+
+
+                    _debugLogger.Write($"Found the following PreCopy types from plugin {assemblyName}:");
+                    // used linq for fun
+                    var preCopyTypeNames = (from a in preCopyListenerTypes
+                                            select a.Name).ToArray();
+
+                    _debugLogger.Write(string.Join("\n", preCopyTypeNames));
+                }
+
             }
-         }
+        }
 
         public void Subscribe(IPreCopyEventBroadcaster pre, IPostCopyEventBroadcaster post)
         {
