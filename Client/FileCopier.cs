@@ -24,7 +24,7 @@ namespace Copier
             if (File.Exists(absoluteSourceFilePath) && (options.OverwriteTargetFile == false)) 
             {
 
-                _logger.Write($"{fileName} exist. Skipped because OverwriteTargetFile is set false.");
+                _logger.LogInfo($"{fileName} exist. Skipping the copy operation because OverwriteTargetFile is set false.");
                 return; 
             }
 

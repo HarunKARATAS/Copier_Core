@@ -24,13 +24,13 @@ namespace Client
         private static void StartWatching(CommandOptions options)
         {
 
-            Console.WriteLine("Watching has started");
+            ILogger logger = new ConsoleLoggger();
+            logger.LogInfo("Watching has started");
 
              options.SourceDirectoryPath = string.IsNullOrWhiteSpace(options.SourceDirectoryPath)
             ? Directory.GetCurrentDirectory()
             : options.SourceDirectoryPath;
 
-            ILogger logger = new ConsoleLoggger();
             IPluginLoader loader = new PluginLoader(logger,options.Debug);
 
 

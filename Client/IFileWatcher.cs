@@ -38,7 +38,7 @@ namespace Copier
 
                 if (options.Verbose)
                 {
-                    _logger.Write($"{args.Name} File has changed {args.ChangeType}");
+                    _logger.LogInfo($"{args.Name} File has changed");
                 }
                 _fileCopier.CopyFile(options, args.Name);
 
@@ -47,7 +47,7 @@ namespace Copier
             {
                 if (options.Verbose)
                 {
-                    _logger.Write($"{args.OldName} File has been renamed to {args.Name}");
+                    _logger.LogInfo($"{args.OldName} File has been renamed to {args.Name}");
                 }
                 _fileCopier.CopyFile(options, args.Name);
             };

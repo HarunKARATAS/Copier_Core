@@ -9,9 +9,10 @@ namespace Copier
 {
     public class PluginLoader : IPluginLoader
     {
-        private readonly ILogger _debugLogger;
+        private ILogger _debugLogger;
         private List<Type> _preCopyListeners = new List<Type>();
         private List<Type> _postCopyListeners = new List<Type>();
+
         private bool ShowDebugMessages { get; set; }
 
         public PluginLoader(ILogger debugLogger, bool showDebugMessages = false)
@@ -36,7 +37,14 @@ namespace Copier
 #endif
 
 
-
+            if (!Directory.Exists(pluginDirectory))
+            {
+                if (ShowDebugMessages)
+                {
+                    _debugLogger.LogError("plugins folder can not found");
+                }
+                return;
+            }
 
             var assemblyFiles = Directory.GetFiles(pluginDirectory, "*.dll");
 
@@ -46,7 +54,7 @@ namespace Copier
 
                 if (ShowDebugMessages)
                 {
-                    _debugLogger.Write($"Loaded {assemblyName}");
+                    _debugLogger.LogDebug($"Loaded {assemblyName}");
                 }
 
                 var existingTypes = pluginAssembly.GetTypes();
@@ -65,16 +73,16 @@ namespace Copier
                 // if enabled login debug messages for the found types in the iterated assembly
                 if (ShowDebugMessages)
                 {
-                    _debugLogger.Write($"Found the following PostCopy types from plugin {assemblyName}:");
-                    _debugLogger.Write(string.Join("\n", postCopyListenerTypes.Select(a => a.Name).ToArray()));
+                    _debugLogger.LogDebug($"Found the following PostCopy types from plugin {assemblyName}:");
+                    _debugLogger.LogDebug(string.Join("\n", postCopyListenerTypes.Select(a => a.Name).ToArray()));
 
 
-                    _debugLogger.Write($"Found the following PreCopy types from plugin {assemblyName}:");
+                    _debugLogger.LogDebug($"Found the following PreCopy types from plugin {assemblyName}:");
                     // used linq for fun
                     var preCopyTypeNames = (from a in preCopyListenerTypes
                                             select a.Name).ToArray();
 
-                    _debugLogger.Write(string.Join("\n", preCopyTypeNames));
+                    _debugLogger.LogDebug(string.Join("\n", preCopyTypeNames));
                 }
 
             }
