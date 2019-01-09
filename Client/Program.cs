@@ -32,9 +32,13 @@ namespace Client
             : options.SourceDirectoryPath;
 
             IPluginLoader loader = new PluginLoader(logger,options.Debug);
-
-
             IFileCopier copier = new FileCopier(logger);
+
+            if (options.Delay > 0)
+            {
+                copier = new QueuedFileCopier();
+            }
+
             IFileWatcher fileWatcher = new FileWatcher(copier,logger);
 
             loader.Subscribe((IPreCopyEventBroadcaster) copier, (IPostCopyEventBroadcaster) copier);
