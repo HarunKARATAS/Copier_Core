@@ -27,16 +27,21 @@ namespace Copier
             Initialize();
         }
 
+        private static string GetPluginsDirectory(PluginLoader instance)
+        {
+
+
+#if DEBUG
+            return Path.Combine(Directory.GetCurrentDirectory(), "plugins");
+#else
+            return  Path.Combine(Directory.GetCurrentDirectory(), "plugins");
+#endif
+        }
+
         private void Initialize()
         {
-            var pluginDirectory = string.Empty;
-#if DEBUG
-            pluginDirectory = Path.Combine(Directory.GetCurrentDirectory(), "plugins");
-#else
-            pluginDirectory = Path.Combine(Directory.GetCurrentDirectory(), "plugins");
-#endif
 
-
+            var pluginDirectory = PluginLoader.GetPluginsDirectory(this);   
             if (!Directory.Exists(pluginDirectory))
             {
                 if (ShowDebugMessages)
