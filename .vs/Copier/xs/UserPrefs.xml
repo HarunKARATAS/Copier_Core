@@ -1,10 +1,10 @@
 ﻿<Properties StartupConfiguration="{2F47800A-BDF3-45EB-B77E-BE01B12E23A2}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Client/PluginLoader.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Client/FileCopier.cs">
     <Files>
-      <File FileName="Client/PluginLoader.cs" Line="34" Column="18" />
-      <File FileName="Client/IFileCopier.cs" Line="5" Column="22" />
+      <File FileName="Client/PluginLoader.cs" Line="23" Column="9" />
       <File FileName="Client/IPluginLoader.cs" Line="1" Column="1" />
-      <File FileName="Client/CommandOptions.cs" Line="26" Column="18" />
+      <File FileName="Client/Program.cs" Line="35" Column="1" />
+      <File FileName="Client/FileCopier.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.ItemProperties.Copier PreferredExecutionTarget="MonoDevelop.Default" />

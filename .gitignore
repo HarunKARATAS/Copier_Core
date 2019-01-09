@@ -4,3 +4,5 @@ CopierPluginBase/obj/*
 .gitignore
 .vs/Copier/xs/*
 CopierPluginBase/bin/*
+SamplePlugin/bin/*
+SamplePlugin/obj/*
