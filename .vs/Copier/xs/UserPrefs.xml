@@ -1,13 +1,8 @@
 ﻿<Properties StartupConfiguration="{2F47800A-BDF3-45EB-B77E-BE01B12E23A2}|Default">
   <MonoDevelop.Ide.Workbench ActiveDocument="Client/QueuedFileCopier.cs">
     <Files>
-      <File FileName="Client/Program.cs" Line="38" Column="51" />
-      <File FileName="Client/FileCopier.cs" Line="27" Column="80" />
-      <File FileName="SamplePlugin/SamplePostCopy.cs" Line="10" Column="82" />
-      <File FileName="SamplePlugin/SamplePreCopyEventListener.cs" Line="10" Column="78" />
-      <File FileName="Client/ConsoleLoggger.cs" Line="24" Column="60" />
-      <File FileName="Client/IFileWatcher.cs" Line="41" Column="67" />
-      <File FileName="Client/QueuedFileCopier.cs" Line="1" Column="1" />
+      <File FileName="Client/Program.cs" Line="36" Column="49" />
+      <File FileName="Client/QueuedFileCopier.cs" Line="9" Column="66" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.ItemProperties.Copier PreferredExecutionTarget="MonoDevelop.Default" />
