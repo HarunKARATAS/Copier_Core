@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
+using System.Text.RegularExpressions;
 using CommandLine;
 using Copier;
 
@@ -9,9 +11,14 @@ namespace Client
     {
         static void Main(string[] args)
         {
-
-            Parser.Default.ParseArguments<CommandOptions, ConfigFileCommandOptions> (args)
-              .WithParsed<CommandOptions>(StartWatching)
+            var result =
+            Parser.Default.ParseArguments<CommandOptions, ConfigFileCommandOptions>(args)
+            /* .MapResult(
+                (CommandOptions o) => StartWatchingAndReturnExitCode(o),
+                (ConfigFileCommandOptions co) => StartWatchingWithConfigurationFile(co),
+                err => 1
+                );*/
+             .WithParsed<CommandOptions>(StartWatching)
               .WithParsed<ConfigFileCommandOptions>(StartWatchingWithConfigurationFile)
               .WithNotParsed(a =>
               {
@@ -22,15 +29,27 @@ namespace Client
             Console.ReadLine();
         }
 
-        private static void StartWatchingWithConfigurationFile(ConfigFileCommandOptions options)
+        private static void  StartWatchingWithConfigurationFile(ConfigFileCommandOptions options)
         {
 
             ILogger logger = new ConsoleLoggger();
             if (File.Exists(options.ConfigFilePath))
             {
                 var configContent = File.ReadAllLines(options.ConfigFilePath);
-                var commandOptions = string.Join(" ", configContent);
-                Parser.Default.ParseArguments<CommandOptions>(configContent)
+                //var commandOptions = string.Join(" ", configContent);
+
+                var trimmedConfig = configContent.SelectMany(a => {
+                    var result = Regex.Match(a, "\"(.*?)\"");
+                    if (result.Success)
+                    {
+                        var option = a.Replace(result.Value, "");
+                        return new[] { option.Trim(), result.Value.Trim().Replace("\"", "") };
+                    }
+                    return new[] { a.Trim() };
+                }).ToList();
+
+
+                Parser.Default.ParseArguments<CommandOptions>(trimmedConfig)
                     .WithParsed(StartWatching)
                     .WithNotParsed(a =>
                     {

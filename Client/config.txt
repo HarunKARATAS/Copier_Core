@@ -1,6 +1,6 @@
-﻿-s "/Users/harun/Desktop/test-files" 
--f "*.txt" 
--d "/Users/harun/Desktop/test-files/new-files" 
+﻿-s "/Users/harun/Desktop/test-files"
+-f "*.txt"
+-d "/Users/harun/Desktop/test-files/new-files"
 -v 
 -t 20000 
 -e 

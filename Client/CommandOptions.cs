@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using CommandLine;
 using CommandLine.Text;
 
 namespace Copier
 {
+    [Verb("watchWithParameters",HelpText = "Start watching manually")]
     public class CommandOptions
     {
         [Option('s', "sourceDirectoryPath", HelpText = "Parent directory where the files will be. If skipped current directory will be searched.")]
