@@ -1,7 +1,7 @@
 ﻿<Properties StartupConfiguration="{2F47800A-BDF3-45EB-B77E-BE01B12E23A2}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Client/ConfigFileCommandOptions.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Client/Program.cs">
     <Files>
-      <File FileName="Client/Program.cs" Line="36" Column="42" />
+      <File FileName="Client/Program.cs" Line="39" Column="28" />
       <File FileName="Client/FileCopier.cs" Line="8" Column="9" />
       <File FileName="Client/CommandOptions.cs" Line="1" Column="1" />
       <File FileName="Client/ConfigFileCommandOptions.cs" Line="10" Column="49" />
