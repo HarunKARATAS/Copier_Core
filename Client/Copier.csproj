@@ -11,4 +11,9 @@
   <ItemGroup>
     <ProjectReference Include="..\CopierPluginBase\CopierPluginBase.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Update="config.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>
