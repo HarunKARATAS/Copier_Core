@@ -26,7 +26,7 @@ namespace Copier
         [Option('e', "debug", Default = false, Required = false, HelpText = "Show debug information.")]
         public bool Debug { get; set; }
 
-        [Option('t', "delay", Default = 0,Required = false, HelpText = "Delay copy operation for a given time in seconds")]
+        [Option('t', "delay", Default = 0,Required = false, HelpText = "Delay copy operation for a given time in miliseconds")]
         public int Delay { get; set; }
 
 

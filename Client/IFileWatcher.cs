@@ -40,7 +40,7 @@ namespace Copier
                 {
                     _logger.LogInfo($"{args.Name} File has changed");
                 }
-                _fileCopier.CopyFile(options, args.Name);
+                _fileCopier.CopyFile(args.Name);
 
             };
             watcher.Renamed += (sender, args) =>
@@ -49,7 +49,7 @@ namespace Copier
                 {
                     _logger.LogInfo($"{args.OldName} File has been renamed to {args.Name}");
                 }
-                _fileCopier.CopyFile(options, args.Name);
+                _fileCopier.CopyFile(args.Name);
             };
 
             //Start watching the file

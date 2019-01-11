@@ -1,8 +1,11 @@
 ﻿<Properties StartupConfiguration="{2F47800A-BDF3-45EB-B77E-BE01B12E23A2}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Client/QueuedFileCopier.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Client/CommandOptions.cs">
     <Files>
-      <File FileName="Client/Program.cs" Line="36" Column="49" />
-      <File FileName="Client/QueuedFileCopier.cs" Line="9" Column="66" />
+      <File FileName="Client/IFileCopier.cs" Line="7" Column="23" />
+      <File FileName="Client/IFileWatcher.cs" Line="34" Column="1" />
+      <File FileName="Client/Program.cs" Line="1" Column="1" />
+      <File FileName="Client/QueuedFileCopier.cs" Line="46" Column="57" />
+      <File FileName="Client/CommandOptions.cs" Line="29" Column="118" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.ItemProperties.Copier PreferredExecutionTarget="MonoDevelop.Default" />
