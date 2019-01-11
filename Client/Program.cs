@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -29,27 +30,15 @@ namespace Client
             Console.ReadLine();
         }
 
-        private static void  StartWatchingWithConfigurationFile(ConfigFileCommandOptions options)
+        private static void  StartWatchingWithConfigurationFile(ConfigFileCommandOptions configFileOptions)
         {
 
             ILogger logger = new ConsoleLoggger();
-            if (File.Exists(options.ConfigFilePath))
+            if (File.Exists(configFileOptions.ConfigFilePath))
             {
-                var configContent = File.ReadAllLines(options.ConfigFilePath);
-                //var commandOptions = string.Join(" ", configContent);
+                var options = GetCommandOptionsFromConfigFile(configFileOptions);
 
-                var trimmedConfig = configContent.SelectMany(a => {
-                    var result = Regex.Match(a, "\"(.*?)\"");
-                    if (result.Success)
-                    {
-                        var option = a.Replace(result.Value, "");
-                        return new[] { option.Trim(), result.Value.Trim().Replace("\"", "") };
-                    }
-                    return new[] { a.Trim() };
-                }).ToList();
-
-
-                Parser.Default.ParseArguments<CommandOptions>(trimmedConfig)
+                Parser.Default.ParseArguments<CommandOptions>(options)
                     .WithParsed(StartWatching)
                     .WithNotParsed(a =>
                     {
@@ -59,8 +48,27 @@ namespace Client
             }
             else
             {
-                logger.LogError($"Configuration file does not exist in {options.ConfigFilePath} path");
+                logger.LogError($"Configuration file does not exist in {configFileOptions.ConfigFilePath} path");
             }
+        }
+
+        private static List<string> GetCommandOptionsFromConfigFile(ConfigFileCommandOptions options)
+        {
+            var configContent = File.ReadAllLines(options.ConfigFilePath);
+            //var commandOptions = string.Join(" ", configContent);
+
+            var trimmedConfig = configContent.SelectMany(a =>
+            {
+                var result = Regex.Match(a, "\"(.*?)\"");
+                if (result.Success)
+                {
+                    var option = a.Replace(result.Value, "");
+                    return new[] { option.Trim(), result.Value.Trim().Replace("\"", "") };
+                }
+                return new[] { a.Trim() };
+            }).ToList();
+
+            return trimmedConfig;
         }
 
         private static void StartWatching(CommandOptions options)
